@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head_content %}
+
+    <title>Listado</title>
+{% endblock head_content %}
+
+{% block container %}
+<div class="container-fluid px-4">   
+
+    <div class="col-md-12">
+        <div class="white_shd full margin_bottom_30">
+            <div class="midde_cont">
+                <div class="container-fluid">
+                   
+                   <!-- row -->
+                   <div class="row column1">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-8">
+                         <div class="white_shd full margin_bottom_30">
+                            <div class="full graph_head">
+                               <div class="heading1 margin_0">
+                                  <h2>Detalle </h2>
+                               </div>
+                            </div>
+                            <div class="full price_table padding_infor_info">
+                               <div class="row">
+                                  <!-- user profile section --> 
+                                  <!-- profile image -->
+                                  <div class="col-lg-12">
+                                     <div class="full dis_flex center_text">
+                                        
+                                        {% for data in data_persona  %}
+                                            <div class="profile_img"><img width="180" class="rounded-circle" src="{{data.foto}}" alt="#" /></div>
+                                        
+                                        
+                                            <div class="profile_contant">
+                                            <div class="contact_inner">
+                                                <h3>{{data.nombres}} {{data.apellido}}</h3>
+                                                <p><strong>Numero de documento: </strong>{{data.numerodocumento}}</p>
+                                                <p><strong>Cuil: </strong>{{data.numerodocumento}}</p>
+                                                <p><strong>Fecha de nacimiento: </strong>{{data.fechanacimiento}}</p>
+                                                <ul class="list-unstyled">
+                                                    <li><p><strong>ID tramite tarjeta impresa: </strong>{{data.idtramitetarjetareimpresa}}</p></li>
+                                                    <p><strong>ID tramite principal: </strong>{{data.idtramiteprincipal}}</p>
+                                                    <p><strong>Ejemplar: </strong>{{data.ejemplar}}</p>
+                                                    <p><strong>Emision: </strong>{{data.emision}}</p>
+                                                    <p><strong>Vencimiento: </strong>{{data.vencimiento}}</p>
+                                                    <p><strong>Pais: </strong>{{data.pais}}</p>
+                                                    <p><strong>Provincia: </strong>{{data.provincia}}</p>
+                                                    <p><strong>Ciudad: </strong>{{data.ciudad}}</p>
+                                                    <p><strong>Muncipio: </strong>{{data.municipio}}</p>
+                                                   
+                                                    
+                                                    
+
+                                                </ul>
+                                            </div>
+                                           
+                                            </div>
+                                        
+                                     </div>
+                                     <!-- profile contant section -->
+                                     <div class="full inner_elements margin_top_30">
+                                        <div class="tab_style2">
+                                           <div class="tabbar">
+                                              <nav>
+                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#recent_activity" role="tab" aria-selected="true">Otros datos</a>
+                                                    
+                                                 </div>
+                                              </nav>
+                                              <div class="tab-content" id="nav-tabContent">
+                                                 <div class="tab-pane fade show active" id="recent_activity" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                    <div class="msg_list_main">
+                                                        <h1 style="font-size:20px">Datos de Contacto</h1>
+                                                        <table class="table">
+                                                            <thead>
+                                                              <tr>
+                                                                
+                                                                <th>Email</th>
+                                                                <th>Telefonos registrados</th>
+                                                                
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              
+                                                              <tr>
+                                                                
+                                                                <td>{{data.email}}</td>
+                                                                <td>{{data.telefono_fijo}} / {{data.telefono_movil}}</td>
+                                                               
+                                                                
+                                                              </tr>
+                                                              
+                                                            </tbody>
+                                                        </table>
+                                                        <h1 style="font-size:20px">Datos de Domicilio</h1>
+                                                        <table class="table">
+                                                            <thead>
+                                                              <tr>
+                                                                
+                                                                <th>Barrio</th>
+                                                                <th>Calle</th>
+                                                                <th>Numero</th>
+                                                                <th>Piso</th>
+                                                                <th>Departamento</th>
+                                                                <th>Monoblock</th>
+                                                                <th>Ultimo domicilio actualizado en la base de datos</th>
+                                                                
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                              
+                                                              <tr>
+                                                                
+                                                                <td>{{data.barrio}}</td>
+                                                                <td>{{data.calle}}</td>
+                                                                <td>{{data.numero}}</td>
+                                                                <td>{{data.piso}}</td>
+                                                                <td>{{data.departamento}}</td>
+                                                                <td>{{data.monoblock}}</td>
+                                                                {% for  domicilio in ultima_direccion  %}                                                                   
+                                                                     <td>{{domicilio.domicilio}}</td>
+                                                                {% endfor %}
+                                                                
+                                                              </tr>
+                                                              
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                       
+                                                        <p style="margin-top:2em"><strong>Codigo postal: </strong>{{data.cpostal}}</p>
+                                                        <p><strong>Origen: </strong>{{data.origenf}}</p>
+                                                        <p><strong>Aviso de Fallecimiento: </strong>{{data.mensaf}}</p>
+                                                        <p><strong>Sexo: </strong>{{data.sexo}}</p>
+                                                        <p><strong>ID ciudadano: </strong>{{data.idciudadano}}</p>
+                                                        <p><strong>Latitud: </strong>{{data.latitud}}</p>
+                                                        <p><strong>Longitud: </strong>{{data.longitud}}</p>
+                                                        <p><strong>Circuito: </strong>{{data.circuito}}</p>
+                                                        
+                                                        
+                                                        
+                                                    </div>
+                                                 </div>
+                                                
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </div>
+                                     {%endfor%}
+                                     
+                                       
+                                    
+                                     
+                                     <!-- end user profile section -->
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="col-md-2"></div>
+                      </div>
+                      <!-- end row -->
+                   </div>
+                   <!-- footer -->
+                   <div class="container-fluid">
+                      <div class="footer">
+                         <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+                            Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                         </p>
+                      </div>
+                   </div>
+                </div>
+                <!-- end dashboard inner -->
+             </div> 
+         </div>
+    </div>
+</div>
+
+{% endblock container %}

@@ -1,0 +1,40 @@
+from django.db import models
+
+# Create your models here.
+class Renaper(models.Model):
+    idtramitetarjetareimpresa = models.CharField(max_length=500, blank=True, null=True)
+    idtramiteprincipal = models.CharField(max_length=500, blank=True, null=True)
+    ejemplar = models.CharField(max_length=500, blank=True, null=True)
+    vencimiento = models.CharField(max_length=500, blank=True, null=True)
+    emision = models.CharField(max_length=500, blank=True, null=True)
+    apellido = models.CharField(max_length=500, blank=True, null=True)
+    nombres = models.CharField(max_length=500, blank=True, null=True)
+    fechanacimiento = models.CharField(max_length=500, blank=True, null=True)
+    cuil = models.CharField(max_length=500, blank=True, null=True)
+    calle = models.CharField(max_length=500, blank=True, null=True)
+    numero = models.CharField(max_length=500, blank=True, null=True)
+    piso = models.CharField(max_length=500, blank=True, null=True)
+    departamento = models.CharField(max_length=500, blank=True, null=True)
+    cpostal = models.CharField(max_length=500, blank=True, null=True)
+    barrio = models.CharField(max_length=500, blank=True, null=True)
+    monoblock = models.CharField(max_length=500, blank=True, null=True)
+    ciudad = models.CharField(max_length=500, blank=True, null=True)
+    municipio = models.CharField(max_length=500, blank=True, null=True)
+    provincia = models.CharField(max_length=500, blank=True, null=True)
+    pais = models.CharField(max_length=500, blank=True, null=True)
+    mensaf = models.CharField(max_length=500, blank=True, null=True)
+    origenf = models.CharField(max_length=500, blank=True, null=True)
+    fechaf = models.CharField(max_length=500, blank=True, null=True)
+    foto = models.TextField(blank=True, null=True)
+    sexo = models.CharField(max_length=200, blank=True, null=True)
+    numerodocumento = models.CharField(max_length=200, blank=True, null=True)
+    idciudadano = models.CharField(max_length=200, blank=True, null=True)
+    email = models.CharField(max_length=500, blank=True, null=True)
+    telefono_movil = models.CharField(max_length=500, blank=True, null=True)
+    telefono_fijo = models.CharField(max_length=500, blank=True, null=True)
+    latitud = models.CharField(max_length=200, blank=True, null=True)
+    longitud = models.CharField(max_length=200, blank=True, null=True)
+    circuito = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.numerodocumento
