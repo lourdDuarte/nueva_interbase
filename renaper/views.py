@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from renaper.models import Renaper
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import CreateView, TemplateView
@@ -18,6 +20,8 @@ class DatosTemplateView(TemplateView):
 
         return context
     
+
+    @login_required
     def post(self, request, *args, **kwargs):
 
         numero_documento = request.POST.get('numerodocumento')
@@ -40,6 +44,7 @@ class DatosTemplateView(TemplateView):
             
         return render (request, 'datos_personas/listado.html', context)
     
+    @login_required
     def detalle_persona(request,pk):
         
         data = Renaper.objects.filter(id=pk)
@@ -58,7 +63,7 @@ class DatosTemplateView(TemplateView):
         
         return render (request,'datos_personas/detalle.html',context)
     
-   
+    @login_required
     def panel_resumen(request):
           
           total_registros = Renaper.objects.count()
@@ -75,7 +80,7 @@ class DatosTemplateView(TemplateView):
           return render (request,'dashboard.html', context)
    
     
-
+    @login_required
     def mapa_ubicaciones(request):
         
         ubicaciones =  Renaper.objects.raw(" SELECT id, numerodocumento, longitud, latitud, sexo"
@@ -92,4 +97,36 @@ class DatosTemplateView(TemplateView):
         
         return render (request, 'mapas/mapa-ubicaciones.html', context)
     
+    def login(request):
+          if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+              
+                login(request, user)
+                return redirect('listado-interbase')
+            else:
+               
+                return render(request, 'login.html', {'error': 'Credenciales incorrectas'})
+          return render (request,'login.html')
+    
+
+    def logout(request):
+          if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+              
+                login(request, user)
+                return redirect('listado-interbase')
+            else:
+               
+                return render(request, 'login.html', {'error': 'Credenciales incorrectas'})
+          return render (request,'login.html')
+    
+    def logout_view(request):
+        logout(request)
+        return redirect('login-interbase')
     

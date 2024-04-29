@@ -20,18 +20,19 @@
        <h4>Menu</h4>
        <ul class="list-unstyled components">
           
-          <li><a href="{% url 'panel' %}"><i class="fa fa-clock-o orange_color"></i> <span>Panel</span></a></li>
-          <li><a href="{% url 'listado' %}"><i class="fa fa-clock-o orange_color"></i> <span>Buscar personas</span></a></li>
+          <li><a href="{% url 'panel-interbase' %}"><i class="fa fa-clock-o orange_color"></i> <span>Panel</span></a></li>
+          <li><a href="{% url 'listado-interbase' %}"><i class="fa fa-clock-o orange_color"></i> <span>Buscar personas</span></a></li>
           <li class="active">
             <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Mapas</span></a>
             <ul class="collapse list-unstyled" id="additional_page">
               
                <li>
-                  <a href="{% url 'mapa' %}">> <span>Buscar por ubicaciones</span></a>
+                  <a href="{% url 'mapa-interbase' %}"> <span>Buscar por ubicaciones</span></a>
                </li>
               
             </ul>
-         </li>
+          </li>
+          <li><a href="{% url 'logout-interbase' %}"><i class="fa fa-clock-o orange_color"></i> <span>Cerrar sesion</span></a></li>
           
           
        </ul>

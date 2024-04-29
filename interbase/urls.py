@@ -18,10 +18,12 @@ from django.urls import path
 from renaper.views import DatosTemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('listado/', DatosTemplateView.as_view(template_name="datos_personas/listado.html"), name = 'listado'),
-    path('detalle/<str:pk>/', DatosTemplateView.detalle_persona, name = 'detalle'),
-    path('panel/', DatosTemplateView.panel_resumen, name = 'panel'),
-    path('mapa/', DatosTemplateView.mapa_ubicaciones, name = 'mapa'),
+    path('admin-interbase/', admin.site.urls),
+    path('listado-interbase/', DatosTemplateView.as_view(template_name="datos_personas/listado.html"), name = 'listado-interbase'),
+    path('detalle-interbase/<str:pk>/', DatosTemplateView.detalle_persona, name = 'detalle-interbase'),
+    path('panel-interbase/', DatosTemplateView.panel_resumen, name = 'panel-interbase'),
+    path('mapa-interbase/', DatosTemplateView.mapa_ubicaciones, name = 'mapa-interbase'),
+    path('login-interbase/', DatosTemplateView.login, name = 'login-interbase'),
+    path('logout-interbase/', DatosTemplateView.logout, name = 'logout-interbase'),
     
 ]

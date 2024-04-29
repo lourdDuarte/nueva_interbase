@@ -17,7 +17,7 @@
                <div class="full graph_head">
                   <div class="heading1 margin_0">
                      <h2>Obtener datos</h2>
-                     <form style="margin-top:2em;" method="post" role="form" action="{% url 'listado' %}" enctype="multipart/form-data">
+                     <form style="margin-top:2em;" method="post" role="form" action="{% url 'listado-interbase' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
                           <div class="col">
@@ -52,7 +52,7 @@
                               <td>{{data.numerodocumento}}</td>
                               <td>{{data.apellido}} {{data.nombres}}</td>
                               <td>
-                                 <a href="{% url 'detalle' data.id %}">
+                                 <a href="{% url 'detalle-interbase' data.id %}">
                                     <div class="button_block"><button type="button" class="btn cur-p btn-info">Ver detalle</button></div>
                                  </a>
                                  

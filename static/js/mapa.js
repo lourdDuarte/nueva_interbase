@@ -63,7 +63,7 @@ mapa.on('click', function (e)
   if(feature.getId()){
     
     detalle = feature.getId()
-    window.open('/detalle/'+detalle+'/','_blank');
+    window.open('/detalle-interbase/'+detalle+'/','_blank');
 
   }
 
