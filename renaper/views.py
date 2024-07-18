@@ -6,6 +6,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import CreateView, TemplateView
 from django.db.models import Count
 from interbase.utils import *
+from django.db.models import Q
+from django.db.models import Count, IntegerField
+from django.db.models.functions import Cast
 # Create your views here.
 
 class DatosTemplateView(TemplateView):
@@ -19,11 +22,10 @@ class DatosTemplateView(TemplateView):
 
 
         return context
-    
 
-    @login_required
     def post(self, request, *args, **kwargs):
-
+       
+        
         numero_documento = request.POST.get('numerodocumento')
         apellido = request.POST.get('apellido')
         nombre = request.POST.get('nombres')
@@ -44,7 +46,7 @@ class DatosTemplateView(TemplateView):
             
         return render (request, 'datos_personas/listado.html', context)
     
-    @login_required
+    
     def detalle_persona(request,pk):
         
         data = Renaper.objects.filter(id=pk)
@@ -56,45 +58,56 @@ class DatosTemplateView(TemplateView):
              dni = d.numerodocumento
         
         ultima_direccion = Renaper.objects.raw(" select id, domicilio from base_datos.padron2023 where matricula = '"+dni+"'")
+        afiliacion = Renaper.objects.raw(" select id, estado_actual, estado_afiliacion, fecha_afiliacion from base_datos.afiliados2023 where matricula = '"+dni+"'")
+
         
-        context_direccion = {'ultima_direccion': ultima_direccion}
+        context_direccion = {'ultima_direccion': ultima_direccion,
+                            'afiliacion': afiliacion}
         context.update(context_direccion)
         
         
         return render (request,'datos_personas/detalle.html',context)
     
-    @login_required
+    
     def panel_resumen(request):
           
-          total_registros = Renaper.objects.count()
+        #   total_registros = Renaper.objects.count()
           total_femenino = Renaper.objects.filter(sexo='F').count()
           total_masculino = Renaper.objects.filter(sexo='M').count()
-          total_direcciones = contar_direcciones_actualizadas()
+          #total_direcciones = contar_direcciones_actualizadas()
+          total_lat_long = Renaper.objects.filter(latitud__isnull=False, longitud__isnull=False).exclude(Q(latitud='') | Q(longitud='')).count()
+          circuitos = Renaper.objects.annotate(circuito_int=Cast('circuito', IntegerField())).values('circuito_int').annotate(total=Count('circuito')).order_by('circuito_int')
           
-          
-          context ={'total_registro': total_registros, 
-                    'total_femenino': total_femenino, 
+          circuitos_dict = {circuito['circuito_int']: circuito['total'] for circuito in circuitos}
+
+          context ={'total_femenino': total_femenino,
+                    # 'total_registros': total_registros, 
                     'total_masculino': total_masculino, 
-                    'total_direcciones_actualizadas':total_direcciones}
+                    #'total_direcciones_actualizadas':total_direcciones,
+                    'total_lat_long':total_lat_long,
+                    'circuitos_dict': circuitos_dict
+                    }
           
           return render (request,'dashboard.html', context)
    
     
-    @login_required
+    
     def mapa_ubicaciones(request):
         
         ubicaciones =  Renaper.objects.raw(" SELECT id, numerodocumento, longitud, latitud, sexo"
                             + " FROM  renaper_renaper where longitud != '' and longitud != 'NULL' ")
-        partidos = Renaper.objects.raw(" SELECT * FROM renaper_partido")
-        partido =  Renaper.objects.raw(" SELECT p.id, numerodocumento, longitud, latitud, partido_id"
-                            + " FROM  renaper_renaper INNER JOIN renaper_partido as p on p.id = partido_id "
-                            + " where longitud != '' and longitud != 'NULL' ")
         
-        context = {'ubicacion': ubicaciones,
+        
+        # partidos = Renaper.objects.raw(" SELECT * FROM renaper_partido")
+        # partido =  Renaper.objects.raw(" SELECT p.id, numerodocumento, longitud, latitud, partido_id"
+        #                     + " FROM  renaper_renaper INNER JOIN renaper_partido as p on p.id = partido_id "
+        #                     + " where longitud != '' and longitud != 'NULL' ")
+        
+        context = {'ubicacion': ubicaciones}
                   
-                   'partidos':partido,
-                   'partido': partido}
-        
+                #    'partidos':partido,
+                #    'partido': partido}
+       
         return render (request, 'mapas/mapa-ubicaciones.html', context)
     
     def login(request):

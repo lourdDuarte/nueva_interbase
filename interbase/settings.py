@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'interbase_db',
         'USER': 'postgres',
         'PASSWORD': 'dbmineco387',
-        'HOST': '167.71.170.134',
+        'HOST': '69.46.4.142',
         'PORT': '5432',
     }
 }

@@ -16,14 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from renaper.views import DatosTemplateView
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin-interbase/', admin.site.urls),
-    path('listado-interbase/', DatosTemplateView.as_view(template_name="datos_personas/listado.html"), name = 'listado-interbase'),
-    path('detalle-interbase/<str:pk>/', DatosTemplateView.detalle_persona, name = 'detalle-interbase'),
-    path('panel-interbase/', DatosTemplateView.panel_resumen, name = 'panel-interbase'),
-    path('mapa-interbase/', DatosTemplateView.mapa_ubicaciones, name = 'mapa-interbase'),
+    path('listado-interbase/', login_required(DatosTemplateView.as_view(template_name="datos_personas/listado.html")), name = 'listado-interbase'),
+    path('detalle-interbase/<str:pk>/', login_required(DatosTemplateView.detalle_persona), name = 'detalle-interbase'),
+    path('panel-interbase/', login_required(DatosTemplateView.panel_resumen), name = 'panel-interbase'),
+    path('mapa-interbase/', login_required(DatosTemplateView.mapa_ubicaciones), name = 'mapa-interbase'),
     path('login-interbase/', DatosTemplateView.login, name = 'login-interbase'),
     path('logout-interbase/', DatosTemplateView.logout, name = 'logout-interbase'),
     
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
