@@ -59,10 +59,11 @@ class DatosTemplateView(TemplateView):
         
         ultima_direccion = Renaper.objects.raw(" select id, domicilio from base_datos.padron2023 where matricula = '"+dni+"'")
         afiliacion = Renaper.objects.raw(" select id, estado_actual, estado_afiliacion, fecha_afiliacion from base_datos.afiliados2023 where matricula = '"+dni+"'")
-
+        data_permiso = Renaper.objects.raw(" select id, telefono, mail from base_datos.permisos_generados where dni = '"+dni+"'")
         
         context_direccion = {'ultima_direccion': ultima_direccion,
-                            'afiliacion': afiliacion}
+                            'afiliacion': afiliacion,
+                            'data_permiso': data_permiso}
         context.update(context_direccion)
         
         

@@ -33,7 +33,7 @@ function BuscarPorDni(filter){
               marcador.setId(coordenada.id_detalle);
               marcador.setStyle(new ol.style.Style({
                     image: new ol.style.Circle({
-                    radius: 9,
+                    radius: 15,
                     fill: new ol.style.Fill({color: 'red'})
                   })
               }));

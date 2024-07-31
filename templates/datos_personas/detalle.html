@@ -87,15 +87,17 @@
                                                               </tr>
                                                             </thead>
                                                             <tbody>
+                                                              {% for permiso in data_permiso  %}
+                                                              
                                                               
                                                               <tr>
                                                                 
-                                                                <td>{{data.email}}</td>
-                                                                <td>{{data.telefono_fijo}} / {{data.telefono_movil}}</td>
+                                                                <td>{{data.email}} / {{permiso.mail}}</td>
+                                                                <td>{{data.telefono_fijo}} / {{data.telefono_movil}} / {{permiso.telefono}}</td>
                                                                
                                                                 
                                                               </tr>
-                                                              
+                                                              {% endfor %}
                                                             </tbody>
                                                         </table>
                                                         <h1 style="font-size:20px">Datos de Domicilio</h1>
@@ -143,7 +145,7 @@
                                                         <p><strong>Circuito: </strong>{{data.circuito}}</p>
                                                         
                                                         
-                                                        <h1 style="font-size:20px; margin-top:2em">Datos de afiliacion</h1>
+                                                        <h1 style="font-size:20px; margin-top:2em">Datos de afiliacion al Partido Justicialista</h1>
                                                         <table class="table">
                                                             <thead>
                                                               <tr>
@@ -160,7 +162,7 @@
                                                              
                                                                <tr>
                                                                   
-                                                                  <td>{{data.estado_actuall}}</td>
+                                                                  <td>{{data.estado_actual}}</td>
                                                                   <td>{{data.estado_afiliacion}} </td>
                                                                   <td>{{data.fecha_afiliacion}} </td>
                                                                   

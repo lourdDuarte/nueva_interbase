@@ -1,8 +1,11 @@
 .contenedor{
-  height: 80px;
-  padding-top: 5px;
   background: #000;
-  margin-bottom: -1em;
+  display: flex;
+  height:50px ;
+}
+
+.contenedor select{
+  z-index: 10000000;
 }
 
 
